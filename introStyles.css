@@ -1,0 +1,144 @@
+body {
+	font-family: Roboto,sans-serif;
+}
+
+ul#menu {
+	clear:both;
+    padding: 0;
+}
+
+ul#menu li {
+    display: inline;
+}
+
+ul#menu li a {
+	
+    background-color: #2196F3;
+    color: white;
+	font-size:130%;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 20px 5px 0 0;
+}
+
+ul#menu li a:hover {
+    background-color: #00bcd4;
+}
+
+a.home img
+	{
+		position:absolute;
+		left:50%; 
+		top:50%;
+		background-color: #2196F3;
+		border-radius: 35px 35px 35px 35px;
+		z-index:1;
+		}
+a.home:hover img
+	{
+		background-color: #CEE3F6;
+	}
+
+
+div#header {
+	clear:both;
+    color:#0080FF;
+	font-size:160%;
+	text-align:center;
+	border:2px solid #0080FF;
+	border-radius: 10px 10px 10px 10px;
+	background-color: #F2F2F2;
+	padding:10px;
+	margin:10px;
+	font-family: "Arial", Arial, sans;
+}
+
+div.intro{
+	position: absolute;
+	height:70%;
+	width:37%;
+	background-color:#FAFAFA;
+	z-index: 0;
+	border:3px solid #FFFFFF;
+
+}
+
+div.nav{
+	max-height:80%;
+    overflow-y:auto;
+	}
+
+div#section {
+	position:relative;
+	clear:both;
+    color:#585858;
+	border-radius: 10px 10px 10px 10px;
+	background-color: #F2F2F2;
+	margin:10px;
+	left:5%;
+	width:90%;
+}
+
+div#sectionHeader {
+	clear:both;
+    color:#0080FF;
+	font-size:140%;
+	margin:5px;
+}
+
+div#sectionInner{
+	clear:both;
+    color:#585858;
+	margin:5px;
+	padding:5px;
+}
+
+div#sectionBlock{
+    color:#585858;
+	margin:5px;
+	font-size:120%;
+}
+
+div#footer {
+	clear:both;
+    color:#0080FF;
+	font-size:160%;
+	text-align:center;
+	padding:10px;
+	margin:10px;
+	border-radius: 10px 10px 10px 10px;
+	background-color: #F2F2F2;
+}
+
+img{
+	border:2px solid #FFFFFF;
+	padding:4px;
+	margin:5px;
+	border-radius: 10px 10px 10px 10px;
+}
+
+
+.text-amber{color:#ffc107}.amber{color:#000 !important;background-color:#ffc107 !important}
+.text-blue{color:#2196F3}.blue{color:#fff !important;background-color:#2196F3 !important}
+.text-light-blue{color:#87CEEB !important}.light-blue{color:#000 !important;background-color:#87CEEB !important}
+.text-brown{color:#795548 !important}.brown{color:#fff !important;background-color:#795548 !important}
+.text-cyan{color:#00bcd4 !important}.cyan{color:#000 !important;background-color:#00bcd4 !important}
+.text-blue-grey{color:#607d8b !important}.blue-grey{color:#fff !important;background-color:#607d8b !important}
+.text-green{color:#4CAF50 !important}.green{color:#fff !important;background-color:#4CAF50 !important}
+.text-light-green{color:#8bc34a !important}.light-green{color:#000 !important;background-color:#8bc34a !important}
+.text-indigo{color:#3f51b5 !important}.indigo{color:#fff !important;background-color:#3f51b5 !important}
+.text-khaki{color:#b4aa50 !important}.khaki{color:#000 !important;background-color:#f0e68c !important}
+.text-lime{color:#cddc39 !important}.lime{color:#000 !important;background-color:#cddc39 !important}
+.text-orange{color:#ff9800 !important}.orange{color:#000 !important;background-color:#ff9800 !important}
+.text-deep-orange{color:#ff5722 !important}.deep-orange{color:#fff !important;background-color:#ff5722 !important}
+.text-pink{color:#e91e63 !important}.pink{color:#fff !important;background-color:#e91e63 !important}
+.text-purple{color:#9c27b0 !important}.purple{color:#fff !important;background-color:#9c27b0 !important}
+.text-deep-purple{color:#673ab7 !important}.deep-purple{color:#fff !important;background-color:#673ab7 !important}
+.text-red{color:#F44336 !important}.red{color:#fff !important;background-color:#F44336 !important}
+.text-teal{color:#009688 !important}.teal{color:#fff !important;background-color:#009688 !important}
+.text-yellow{color:#d2be0e !important}.yellow{color:#000 !important;background-color:#ffeb3b !important}
+.text-white{color:#fff !important}.white{color:#000 !important;background-color:#fff !important}
+.text-black{color:#000 !important}.black{color:#fff !important;background-color:#000 !important}
+.text-grey{color:#757575 !important}.grey{color:#000 !important;background-color:#9e9e9e !important}
+.text-light-grey{color:#f1f1f1 !important}.light-grey{color:#000;background-color:#f1f1f1 !important}
+.text-dark-grey{color:#3a3a3a !important}.dark-grey{color:white;background-color:#616161 !important}

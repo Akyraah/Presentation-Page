@@ -4,6 +4,10 @@ margin-left:40px;
 
 body {
 	font-family: Roboto,sans-serif;
+	background-color:white ;
+	background-image: url(Pics/background.png);
+	background-size: cover;
+	background-attachment: fixed
 }
 
 
@@ -35,7 +39,7 @@ ul.menu li button{
 	float:left;
 	color: #0080FF;
 	font-size:130%;
-	border:3px solid #FFFFFF;
+	border:3px solid #F2F2F2;
     border-radius: 20px 5px 0 0;
 	width : 100%;
 	display:block;

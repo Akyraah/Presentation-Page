@@ -205,6 +205,7 @@ background-attachment: fixed">
 
 <script>
 
+	//TODO c, bc, ctx, bctx ça n'a pas de sens, size c'est la taille de quoi?
 	var c;
 	var bc;
 	var ctx;
@@ -238,6 +239,7 @@ background-attachment: fixed">
 	
 	var x0 = 400//Math.floor(canvasWidth / 2);
 	var y0 = 400//Math.floor(canvasHeight / 2);
+	//TODO radius c'est mieux que r ou bien rayon
 	var r0 = 60;
 	var r1 = 45;
 	
@@ -254,19 +256,26 @@ background-attachment: fixed">
 	// -------------------------------------------------------------------
 	//
 	
+	//TODO i ce n'est pas un nom de variable, préfère circleId ou un truc du genre
 	for (i = 0; i < circleNb; i++) {
-		thetaCoord. push(((Math.random()*360/1)/180*Math.PI));
-		var checked = false;
-		while (!checked){
-			thetaCoord[i] = (Math.random()*360/1)/180*Math.PI;
-			checked = true;
-			for (j = 0; j < i; j++){
+		//TODO catastrophe ferroviaire, préfères
+		<![CDATA[
+			angleDifference = Math.abs(thetaCoord[i] - thetaCoord[j]);
+			minAngle = (55 / 180) * Math.PI;
+			if ( angleDifference < minAngle){
+		]]>
 				if ( Math.abs(thetaCoord[i] - thetaCoord[j]) < 55/180*Math.PI){
 					checked = false;
 				}
 			}
 			
 		}
+		//TODO ta ligne est encore une fois trop compacte, trop d'infos sur une ligne
+		<![CDATA[
+			radiusMin = 100;
+			//j'ai pas trouvé de meilleur nom sur le coup mais là c'est pas encore bien nommé
+			radius = (Math.random() * 200) / 1;
+		]]>
 		rCoord.push(100 + (Math.random() * 200)/1);
 	}
 	
@@ -278,16 +287,20 @@ background-attachment: fixed">
 	//
 	
 	$(document).ready(function(){
+		//TODO c'est mal nommé
 		c = $("#foregroundCanvas")[0];
 		bc = $("#backgroundCanvas")[0];
 		ctx = c.getContext("2d");
 		bctx = bc.getContext("2d");
 		
+		//TODO essaie de toujours garder des espaces pour regrouper les éléments de manière logique genre là t'aurais du écrire ...Style = "#FF...
 		ctx.strokeStyle="#FFFFFF"; //E6E6E6
 		ctx.fillStyle = "#FAFAFA";
 		ctx.lineWidth=4;
 		
+		//TODO, pas i, préfère iconId ou un truc du style
 		for (i = 0; i<iconNb; i++){
+			//TODO Bien!
 			var name = "#icon" + i.toString();
 			$(name).hide();
 			
@@ -299,8 +312,10 @@ background-attachment: fixed">
 		size = getSize();
 		initWindow();
 		drawBackground();
+		//TODO iterator, j'ai du mal à comprendre
 		iterator();
 		
+		//TODO un peu dur à comprendre mais c'est pas de ta faute les callbacks javascript c'est toujours dégueu
 		$(document).mousemove(function(event){
 			movementManager(event.pageX,event.pageY);
 		});
@@ -315,14 +330,17 @@ background-attachment: fixed">
 	
 	function iterator() {
 	
+		//TODO Bien c'est clair!
 		if (moving){
 			moveCircles();
 			
+			//TODO ça peut être bien de faire rectX = 0 rectY = 0 mais bon je pinaille
 			ctx.clearRect(0,0,c.width,c.height)
 			drawCircles();
 			drawIcons();
 		}
 		
+		//TODO évite le code dans les commentaires c'est pas super propre
 		if (true){//loopNumber < loopLimit){
 			loopNumber += 1;
 			setTimeout(iterator, 10);
@@ -330,6 +348,7 @@ background-attachment: fixed">
 	}
 	
 	function moveCircles(){
+		//TODO préfères circleId mais bon là ça va encore vu que c'est court et qu'il y a circleNb
 		for (i = 0; i < circleNb; i++) {
 			thetaCoord[i] += 0.002;
 		}
@@ -344,10 +363,15 @@ background-attachment: fixed">
 	function drawCircles(){
 		for (i = 0; i < circleNb; i++) {
 			ctx.beginPath();
+			//TODO préfères cartesianPos
 			pos = convertPolarToCart(thetaCoord[i],rCoord[i]);
+			//TODO ctx.arc, on ne comprend pas ce que tu veux dire, en plus il y a trop d'infos dans cette ligne, sépare tes x0 + pos[0] fais en une variable à chaque fois
 			ctx.arc(x0 + pos[0], y0 + pos[1],r1,0,2*Math.PI);
+			//TODO posStart? position de départ de quoi?
 			posStart = convertPolarToCart(thetaCoord[i],r0);
+			//TODO pareil
 			posEnd = convertPolarToCart(thetaCoord[i],rCoord[i] - r1);
+			//TODO tu pourrais séparer mais en vrai ça reste très lisible
 			ctx.moveTo(posStart[0] + x0,posStart[1] + y0);
 			ctx.lineTo(posEnd[0] + x0,posEnd[1] + y0);
 			
@@ -362,6 +386,7 @@ background-attachment: fixed">
 	}
 	
 	function drawBackground(){
+		//TODO là on ne comprend pas, c'est quoi i et pourquoi doit il aller jusqu'à 10?
 		for (i = 0; i<10; i++){
 			bctx.fillStyle="#CEE3F6";
 			bctx.fillRect(500,0,250,100);
@@ -370,11 +395,15 @@ background-attachment: fixed">
 	}
 	
 	function drawIcons(){
+		//TODO évites le code commenté
 		//ctx.clearRect(0,0,c.width, c.height);
+		//TODO évite i
 		for (i = 0; i<iconNb; i++){
+			//TODO tu pourrais spécifier du style iconName ou iconId mais là ça va
 			var name = "#icon" + i.toString();
 			var img = $(name)[0];
 			var pos = convertPolarToCart(thetaCoord[i],rCoord[i]);
+			//TODO là on ne comprend rien
 			ctx.drawImage(img,pos[0] - r1 + x0,pos[1] - r1 + y0,r1*2,r1*2);
 		}
 
@@ -387,6 +416,7 @@ background-attachment: fixed">
 	//
 	
 	function convertPolarToCart(theta, r){
+		//TODO tu pourrais séparer le floor de son contenu mais là ça reste encore clair
 		var x = Math.floor(r*Math.cos(theta));
 		var y = Math.floor(r*Math.sin(theta));
 		return [x,y];
@@ -398,6 +428,7 @@ background-attachment: fixed">
 	// -------------------------------------------------------------------
 	//
 	
+	//TODO si tu écris en français laisse en français partout, si tu écris en anglais laisse en anglais partout
 	function movementManager(x,y){
 		moving = true;
 		if (!leftDivShown && !rightDivShown){
@@ -414,8 +445,10 @@ background-attachment: fixed">
 	}
 	
 	function circlesDetection(x,y){
+		//TODO encore i
 		for (i = 0; i < circleNb; i++){
 			var pos = convertPolarToCart(thetaCoord[i], rCoord[i]);
+			//TODO trop d'informations sur une ligne crée des variables, il y a tellement d'infos qu'elle fait 2 lignes
 			var distance = Math.pow(x - canvasX - (x0 + pos[0]) * canvasWidth / canvasInitWidth,2)
 			 + Math.pow(y - canvasY - (y0 + pos[1]) * canvasHeight / canvasInitHeight , 2);
 			if (distance < Math.pow(r1,2)){
@@ -430,6 +463,7 @@ background-attachment: fixed">
 			var winWidth = $(window).innerWidth()
 			var winHeight = $(window).innerHeight();
 			if (rightDivShown){
+				//TODO tu pourrais créer un booléen boxOutOfBounds mais je pinaille
 				if ( (x < winWidth*0.53) || (x > winWidth*0.90) || (y<winHeight*0.10) || (y > winHeight*0.80)){
 					var name = "#intro" + introShown.toString();
 					$(name).fadeOut();
@@ -457,7 +491,7 @@ background-attachment: fixed">
 			$(name)[0].style.left = "53%";
 			rightDivShown = true;
 
-			
+			//TODO évited
 			//$("#rightDiv")[0].innerHTML = '<a href="http://www.google.com" ><img src="Pics/Kirito Asuna.jpg" alt="Kirito" width="400" height="200" style="text-align:center"></a>';
 		}
 		else{
@@ -468,6 +502,7 @@ background-attachment: fixed">
 		}
 		
 		$(name).fadeIn();
+		//TODO i n'apporte pas d'information
 		introShown = i;
 		date = loopNumber;
 	}
@@ -483,6 +518,7 @@ background-attachment: fixed">
 			//Non-IE
 			myWidth = window.innerWidth;
 			myHeight = window.innerHeight;
+			//TODO catastrophe ferroviaire mais ça reste clair
 		} else if( document.documentElement && ( document.documentElement.clientWidth || document.documentElement.clientHeight ) ) {
 			//IE 6+ in 'standards compliant mode'
 			myWidth = document.documentElement.clientWidth;
@@ -499,6 +535,7 @@ background-attachment: fixed">
 		canvasHeight = Math.floor(size[1] * 0.85);
 		canvasWidth = Math.floor(size[1] * 0.85);
 		
+		//TODO catastrophe ferroviaire mais ca reste clair
 		c.style.width = canvasHeight.toString() +"px";
 		c.style.height = canvasHeight.toString() +"px";
 		

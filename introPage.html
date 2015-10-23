@@ -10,7 +10,7 @@
 
 <body style="background-color:white ;
 background-image: url(Pics/background.png);
-background-size: cover;
+background-windowSize: cover;
 background-attachment: fixed">
 
 <div style="position: absolute; left: 0; top: 0; width:100%; height: 100%">
@@ -205,11 +205,11 @@ background-attachment: fixed">
 
 <script>
 
-	var c;
-	var bc;
-	var ctx;
-	var bctx;
-	var size;
+	var foregroundCanvas;
+	var backgroundCanvas;
+	var foregroundCtx;
+	var backgroundCtx;
+	var windowSize;
 	
 	var leftDivShown = false;
 	var rightDivShown = false;
@@ -227,9 +227,7 @@ background-attachment: fixed">
 
 	
 	
-	
-	var loopLimit = 10000;
-	var loopNumber = 1;
+	var loopNumber = 0;
 	var date;
 	var moving = true;
 	
@@ -238,8 +236,8 @@ background-attachment: fixed">
 	
 	var x0 = 400//Math.floor(canvasWidth / 2);
 	var y0 = 400//Math.floor(canvasHeight / 2);
-	var r0 = 60;
-	var r1 = 45;
+	var radius0 = 60;
+	var radiusIcon = 45;
 	
 	var circleNb = 5;
 	var iconNb = 5;
@@ -250,18 +248,20 @@ background-attachment: fixed">
 	
 	//
 	// -------------------------------------------------------------------
-	// Initialisation des tableaux :
+	// Array init :
 	// -------------------------------------------------------------------
 	//
 	
-	for (i = 0; i < circleNb; i++) {
+	for (circleId = 0; circleId < circleNb; circleId++) {
 		thetaCoord. push(((Math.random()*360/1)/180*Math.PI));
 		var checked = false;
 		while (!checked){
-			thetaCoord[i] = (Math.random()*360/1)/180*Math.PI;
+			thetaCoord[circleId] = (Math.random()*360/1)/180*Math.PI;
 			checked = true;
-			for (j = 0; j < i; j++){
-				if ( Math.abs(thetaCoord[i] - thetaCoord[j]) < 55/180*Math.PI){
+			for (j = 0; j < circleId; j++){
+				angleDifference = Math.abs(thetaCoord[circleId] - thetaCoord[j]);
+				angleMin = (55/180)*Math.PI;
+				if ( angleDifference < angleMin){
 					checked = false;
 				}
 			}
@@ -273,30 +273,30 @@ background-attachment: fixed">
 	
 	//
 	// -------------------------------------------------------------------
-	// Fonction principale :
+	// Main :
 	// -------------------------------------------------------------------
 	//
 	
 	$(document).ready(function(){
-		c = $("#foregroundCanvas")[0];
-		bc = $("#backgroundCanvas")[0];
-		ctx = c.getContext("2d");
-		bctx = bc.getContext("2d");
+		foregroundCanvas = $("#foregroundCanvas")[0];
+		backgroundCanvas = $("#backgroundCanvas")[0];
+		foregroundCtx = foregroundCanvas.getContext("2d");
+		backgroundCtx = backgroundCanvas.getContext("2d");
 		
-		ctx.strokeStyle="#FFFFFF"; //E6E6E6
-		ctx.fillStyle = "#FAFAFA";
-		ctx.lineWidth=4;
+		foregroundCtx.strokeStyle="#FFFFFF"; //E6E6E6
+		foregroundCtx.fillStyle = "#FAFAFA";
+		foregroundCtx.lineWidth=4;
 		
-		for (i = 0; i<iconNb; i++){
-			var name = "#icon" + i.toString();
+		for (iconId = 0; iconId<iconNb; iconId++){
+			var name = "#icon" + iconId.toString();
 			$(name).hide();
 			
-			name = "#intro" + i.toString();
+			name = "#intro" + iconId.toString();
 			$(name).hide();
 		}
 		
 		
-		size = getSize();
+		windowSize = getSize();
 		initWindow();
 		drawBackground();
 		iterator();
@@ -309,7 +309,7 @@ background-attachment: fixed">
 	
 	//
 	// -------------------------------------------------------------------
-	// Gestion de la boucle de temps:
+	// Timing loop:
 	// -------------------------------------------------------------------
 	//
 	
@@ -318,71 +318,75 @@ background-attachment: fixed">
 		if (moving){
 			moveCircles();
 			
-			ctx.clearRect(0,0,c.width,c.height)
+			foregroundCtx.clearRect(0,0,foregroundCanvas.width,foregroundCanvas.height)
 			drawCircles();
 			drawIcons();
 		}
 		
-		if (true){//loopNumber < loopLimit){
+		if (true){
 			loopNumber += 1;
 			setTimeout(iterator, 10);
 		}
 	}
 	
 	function moveCircles(){
-		for (i = 0; i < circleNb; i++) {
-			thetaCoord[i] += 0.002;
+		for (circleId = 0; circleId < circleNb; circleId++) {
+			thetaCoord[circleId] += 0.002;
 		}
 	}
 	
 	//
 	// -------------------------------------------------------------------
-	// Affichage des objets :
+	// Display :
 	// -------------------------------------------------------------------
 	//
 	
 	function drawCircles(){
-		for (i = 0; i < circleNb; i++) {
-			ctx.beginPath();
-			pos = convertPolarToCart(thetaCoord[i],rCoord[i]);
-			ctx.arc(x0 + pos[0], y0 + pos[1],r1,0,2*Math.PI);
-			posStart = convertPolarToCart(thetaCoord[i],r0);
-			posEnd = convertPolarToCart(thetaCoord[i],rCoord[i] - r1);
-			ctx.moveTo(posStart[0] + x0,posStart[1] + y0);
-			ctx.lineTo(posEnd[0] + x0,posEnd[1] + y0);
+		for (circleId = 0; circleId < circleNb; circleId++) {
+			foregroundCtx.beginPath();
+			pos = convertPolarToCart(thetaCoord[circleId],rCoord[circleId]);
+			foregroundCtx.arc(x0 + pos[0], y0 + pos[1],radiusIcon,0,2*Math.PI);
+			posStart = convertPolarToCart(thetaCoord[circleId],radius0);
+			posEnd = convertPolarToCart(thetaCoord[circleId],rCoord[circleId] - radiusIcon);
+			foregroundCtx.moveTo(posStart[0] + x0,posStart[1] + y0);
+			foregroundCtx.lineTo(posEnd[0] + x0,posEnd[1] + y0);
 			
 
-			ctx.fill();
-			ctx.stroke();
+			foregroundCtx.fill();
+			foregroundCtx.stroke();
 		}
 		
-		ctx.beginPath();
-		ctx.arc(x0,y0,r0,0,2*Math.PI);
-		ctx.stroke();
+		foregroundCtx.beginPath();
+		foregroundCtx.arc(x0,y0,radius0,0,2*Math.PI);
+		foregroundCtx.stroke();
 	}
 	
 	function drawBackground(){
 		for (i = 0; i<10; i++){
-			bctx.fillStyle="#CEE3F6";
-			bctx.fillRect(500,0,250,100);
-			bctx.rotate(10*Math.PI/180);
+			backgroundCtx.fillStyle="#CEE3F6";
+			backgroundCtx.fillRect(500,0,250,100);
+			backgroundCtx.rotate(10*Math.PI/180);
 		}
 	}
 	
 	function drawIcons(){
-		//ctx.clearRect(0,0,c.width, c.height);
-		for (i = 0; i<iconNb; i++){
-			var name = "#icon" + i.toString();
+		
+		for (iconId = 0; iconId<iconNb; iconId++){
+			var name = "#icon" + iconId.toString();
 			var img = $(name)[0];
-			var pos = convertPolarToCart(thetaCoord[i],rCoord[i]);
-			ctx.drawImage(img,pos[0] - r1 + x0,pos[1] - r1 + y0,r1*2,r1*2);
+			var pos = convertPolarToCart(thetaCoord[iconId],rCoord[iconId]);
+			var imageX = pos[0] - radiusIcon + x0;
+			var imageY = pos[1] - radiusIcon + y0;
+			var imageWidth = radiusIcon*2;
+			var imageHeight = radiusIcon*2;
+			foregroundCtx.drawImage(img,imageX,imageY,imageWidth,imageHeight);
 		}
 
 	}
 	
 	//
 	// -------------------------------------------------------------------
-	// Autre
+	// Other
 	// -------------------------------------------------------------------
 	//
 	
@@ -414,30 +418,28 @@ background-attachment: fixed">
 	}
 	
 	function circlesDetection(x,y){
-		for (i = 0; i < circleNb; i++){
-			var pos = convertPolarToCart(thetaCoord[i], rCoord[i]);
+		for (circleId = 0; circleId < circleNb; circleId++){
+			var pos = convertPolarToCart(thetaCoord[circleId], rCoord[circleId]);
 			var distance = Math.pow(x - canvasX - (x0 + pos[0]) * canvasWidth / canvasInitWidth,2)
 			 + Math.pow(y - canvasY - (y0 + pos[1]) * canvasHeight / canvasInitHeight , 2);
-			if (distance < Math.pow(r1,2)){
+			if (distance < Math.pow(radiusIcon,2)){
 				moving = false;
-				showIntro(x, y,i);
+				showIntro(x, y,circleId);
 			}
 		}
 	}
 	
 	function boxDetection(x,y){
 		if (loopNumber - date > 50){
-			var winWidth = $(window).innerWidth()
-			var winHeight = $(window).innerHeight();
 			if (rightDivShown){
-				if ( (x < winWidth*0.53) || (x > winWidth*0.90) || (y<winHeight*0.10) || (y > winHeight*0.80)){
+				if ( (x < windowSize[0]*0.53) || (x > windowSize[0]*0.90) || (y<windowSize[1]*0.10) || (y > windowSize[1]*0.80)){
 					var name = "#intro" + introShown.toString();
 					$(name).fadeOut();
 					rightDivShown = false;
 				}
 			}
 			else{
-				if ( (x < winWidth*0.09) || (x > winWidth*0.46) || (y<winHeight*0.10) || (y > winHeight*0.80)){
+				if ( (x < windowSize[0]*0.09) || (x > windowSize[0]*0.46) || (y<windowSize[1]*0.10) || (y > windowSize[1]*0.80)){
 					var name = "#intro" + introShown.toString();
 					$(name).fadeOut();
 					leftDivShown = false;
@@ -446,12 +448,10 @@ background-attachment: fixed">
 		}
 	}
 	
-	function showIntro(x,y,i){
-		var name = "#intro" + i.toString();
-		var winWidth = $(window).innerWidth()
-		var winHeight = $(window).innerHeight();
-
-		if (x > winWidth/2){
+	function showIntro(x,y,id){
+		var name = "#intro" + id.toString();
+		
+		if (x > windowSize[0]/2){
 
 			$(name)[0].style.top = "10%";
 			$(name)[0].style.left = "53%";
@@ -468,12 +468,12 @@ background-attachment: fixed">
 		}
 		
 		$(name).fadeIn();
-		introShown = i;
+		introShown = id;
 		date = loopNumber;
 	}
 	//
 	// -------------------------------------------------------------------
-	// Capture de la taille de l'écran et gestion de la taille des objets.
+	// Window management
 	// -------------------------------------------------------------------
 	//
 	
@@ -496,15 +496,15 @@ background-attachment: fixed">
 	}
 	
 	function initWindow(){
-		canvasHeight = Math.floor(size[1] * 0.85);
-		canvasWidth = Math.floor(size[1] * 0.85);
+		canvasHeight = Math.floor(windowSize[1] * 0.85);
+		canvasWidth = Math.floor(windowSize[1] * 0.85);
 		
-		c.style.width = canvasHeight.toString() +"px";
-		c.style.height = canvasHeight.toString() +"px";
+		foregroundCanvas.style.width = canvasHeight.toString() +"px";
+		foregroundCanvas.style.height = canvasHeight.toString() +"px";
 		
-		canvasX = Math.floor((size[0] - canvasWidth) / 2);
+		canvasX = Math.floor((windowSize[0] - canvasWidth) / 2);
 		canvasY = 0;
-		c.style.left = canvasX.toString() + "px";
+		foregroundCanvas.style.left = canvasX.toString() + "px";
 	}
 </script>
 

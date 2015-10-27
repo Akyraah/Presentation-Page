@@ -1,0 +1,47 @@
+div.nav{
+	position:absolute;
+    color:#585858;
+	border-radius: 10px 10px 10px 10px;
+	background-color: #F2F2F2;
+	margin:10px;
+	left:15%;
+	width:85%;
+	height:80%;
+	max-height:80%;
+    overflow-y:auto;
+}
+
+div.navHeader1 {
+	
+	clear:both;
+    color:#0080FF;
+	font-size:160%;
+	margin:30px;
+}
+
+div.navHeader2{
+	color:#0080FF;
+	font-size:140%;
+	margin:10px;
+}
+
+div.navSection{
+	clear:both;
+	color:#585858;
+	margin:10px;
+	padding:10px;
+}
+div.navInner{
+	color:#585858;
+	font-size:130%;
+	margin-left:20px;
+	padding:5px;
+	text-align:justify;
+}
+
+img{
+	border:2px solid #FFFFFF;
+	padding:4px;
+	margin:5px;
+	border-radius: 10px 10px 10px 10px;
+}

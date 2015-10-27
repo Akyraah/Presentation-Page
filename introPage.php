@@ -41,7 +41,7 @@
 	<div id="footer">
 		Click me for more information!
 	</div>
-	<a 	href="index.php?p=A" 
+	<a 	href="?p=Projects" 
 		style="	position: absolute;
 				height: 100%;
 				width: 100%;
@@ -111,7 +111,7 @@
 	<div id="footer">
 		Click me for more information!
 	</div>
-	<a 	href="index.php?p=VGD" 
+	<a 	href="?p=VGD" 
 		style="	position: absolute;
 				height: 100%;
 				width: 95%;
@@ -161,7 +161,7 @@
 	<div class = "nav">
 		<div id="section">
 			<div id="sectionHeader">
-				How you can contact me
+				How you can contact me:
 			</div>
 			<div id="sectionInner">
 				<div id="sectionBlock" align="justify">
@@ -174,14 +174,27 @@
 		</div>
 		<div id="section">
 			<div id="sectionHeader">
+				Where you can find my projects:
+				
+			</div>
+			<div id="sectionInner">
+				<div id="sectionBlock" align="justify">
+					On GitHub: <br>
+					<a href="https://github.com/Akyraah" style="z-index: 0">https://github.com/Akyraah</a>
+				</div>
+			</div>
+		</div>		
+		<div id="section">
+			<div id="sectionHeader">
 				About the website:
 			</div>
 			<div id="sectionInner">
 				<div id="sectionBlock" align="justify">
 					Made in 2015<br>
-					Mainly in HTML/JavaScript<br>
-					Tutorials used : <a href="http://www.w3schools.com" style="z-index: 0">www.w3schools.com</a>
-					
+					Uses PHP, HTML5, JavaScript and CSS<br>
+					Tutorials used : <br>
+					<a href="http://www.w3schools.com" style="z-index: 0">www.w3schools.com</a> <br>
+					<a href="https://openclassrooms.com/courses/concevez-votre-site-web-avec-php-et-mysql" style="z-index: 0">openclassrooms.com</a>
 				</div>
 			</div>
 		</div>		

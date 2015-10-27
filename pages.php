@@ -9,6 +9,14 @@ $pages = array(
 		"css" => array(),
 		"tabs" => array("Explode to Win", "Dragon Slash", "Geometry War", "Dragon Kingdom")
 	),
+	"Projects" => array(
+		"name" => "Projects",
+		"title" => "Personnal Projects",
+		"html" => "ProjectsPage.php",
+		"scripts" => array(),
+		"css" => array(),
+		"tabs" => array("TIPE", "Presentation Website")
+	),
 	"intro" => array(
 		"name" => "intro",
 		"title" => "Introduction",

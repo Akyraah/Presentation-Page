@@ -1,0 +1,19 @@
+span.tab{
+margin-left:40px;
+}
+
+body {
+	font-family: Roboto,sans-serif;
+	background-color:white ;
+	background-image: url(../Pics/background.png);
+	background-size: cover;
+	background-attachment: fixed
+}
+
+div.mainBlock{
+	position:absolute;
+	left:20%;
+	top:5%;
+	width:60%;
+	height:90%;
+}

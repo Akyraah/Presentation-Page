@@ -1,0 +1,10 @@
+div.footer {
+	clear:both;
+    color:#0080FF;
+	font-size:160%;
+	text-align:center;
+	padding:10px;
+	margin:10px;
+	border-radius: 10px 10px 10px 10px;
+	background-color: #F2F2F2;
+}
